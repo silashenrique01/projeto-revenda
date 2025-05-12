@@ -4,45 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
+using Infra.Context;
 using Infra.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
-    public class EnderecoRepository : IAbstractRepository, IEnderecoRepository
+    public class EnderecoRepository : IEnderecoRepository
     {
-        public Task<IList<Endereco>> GetAllEnderecosAsync()
+        private readonly DataContext _dataContext;
+        public EnderecoRepository(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            _dataContext = dataContext;
+        }
+        public async Task<IList<Endereco>> GetAllEnderecosAsync()
+        {
+            return await _dataContext.Enderecos.ToListAsync();
         }
 
-        public Task<Endereco> GetEnderecoByIdAsync(Guid id)
+        public async Task<Endereco> GetEnderecoByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Add<T>(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Delete<T>(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.DeleteRange<T>(T[] entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<bool> IAbstractRepository.SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Update<T>(T entity)
-        {
-            throw new NotImplementedException();
+            return await _dataContext.Enderecos.Where(e => e.Id == id).FirstOrDefaultAsync();
         }
     }
 }

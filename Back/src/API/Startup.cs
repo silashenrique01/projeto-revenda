@@ -1,4 +1,8 @@
+using Application.Interfaces;
+using Application.Services;
 using Infra.Context;
+using Infra.Interfaces;
+using Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +25,18 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //repositories
+            services.AddScoped<IRevendaRepository, RevendaRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IContatoRepository, ContatoRepository>();
+            services.AddScoped<IAbstractRepository, AbstractRepository>();
+
+            //services
+            services.AddScoped<IRevendaService, RevendaService>();
+            services.AddScoped<IContatoRepository, ContatoRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+
+
             services.AddDbContext<DataContext>(
 
                 options => options.UseSqlite(Configuration.GetConnectionString("Default"))

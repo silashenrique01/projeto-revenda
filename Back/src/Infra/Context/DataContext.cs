@@ -8,7 +8,7 @@ namespace Infra.Context
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Contato> Contatos { get; set; }
-        public DbSet<Revenda> revendas { get; set; }
+        public DbSet<Revenda> Revendas { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

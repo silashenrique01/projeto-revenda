@@ -6,16 +6,16 @@ namespace Domain
 {
     public class Revenda
     {
-        public Guid Id { get; private set; }
-        public string Cnpj { get; private set; }
-        public string RazaoSocial { get; private set; }
-        public string NomeFantasia { get; private set; }
-        public string Email { get; private set; }
+        public Guid Id { get; set; }
+        public string Cnpj { get; set; }
+        public string RazaoSocial { get; set; }
+        public string NomeFantasia { get; set; }
+        public string Email { get; set; }
 
         [NotMapped]
-        public IList<string> Telefones { get; private set; }
-        public IList<Contato> Contatos { get; private set; }
-        public IList<Endereco> Enderecos { get; private set; }
+        public IList<string> Telefones { get; set; }
+        public IList<Contato> Contatos { get; set; }
+        public IList<Endereco> Enderecos { get; set; }
 
         public Revenda()
         {
@@ -47,6 +47,11 @@ namespace Domain
         public void AdicionarEnderecoEntrega(Endereco endereco)
         {
             Enderecos.Add(endereco);
+        }
+
+        public void update(Guid id)
+        {
+            Id = id;
         }
 
     }

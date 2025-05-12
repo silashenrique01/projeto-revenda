@@ -1,57 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using Infra.Context;
 using Infra.Interfaces;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
-    public class RevendaRepository : IRevendaRepository, IAbstractRepository
+    public class RevendaRepository : IRevendaRepository
     {
         private readonly DataContext _dataContext;
         public RevendaRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
-        public void Add<T>(T entity) where T : class
+
+        public async Task<IList<Revenda>> GetAllRevendasAsync()
         {
-            _dataContext.Add(entity);
+            IQueryable<Revenda> query = _dataContext.Revendas.Include(r => r.Enderecos).Include(r => r.Contatos);
+
+            return await query.OrderBy(r => r.RazaoSocial).ToListAsync();
         }
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<Revenda> GetRevendaByIdAsync(Guid id)
         {
-            _dataContext.Remove(entity);
-        }
+            IQueryable<Revenda> query = _dataContext.Revendas.Include(r => r.Enderecos).Include(r => r.Contatos);
 
-        public void DeleteRange<T>(T[] entityArray) where T : class
-        {
-            _dataContext.RemoveRange(entityArray);
-        }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            return (await _dataContext.SaveChangesAsync()) > 0;
-        }
-
-        public Task<IList<Revenda>> GetAllRevendasAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Revenda> GetRevendaByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        public void Update<T>(T entity) where T : class
-        {
-            throw new NotImplementedException();
-        }
+            return await query.OrderBy(r => r.RazaoSocial).Where(r => r.Id == id).FirstOrDefaultAsync();
+        }  
     }
 }

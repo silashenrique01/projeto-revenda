@@ -1,46 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using Infra.Context;
 using Infra.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
-    public class ContatoRepository : IAbstractRepository, IContatoRepository
+    public class ContatoRepository : IContatoRepository
     {
-        public Task<IList<Contato>> GetAllContatosAsync()
+
+        private readonly DataContext _dataContext;
+
+        public ContatoRepository(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            _dataContext = dataContext;
+        }
+        public async Task<IList<Contato>> GetAllContatosAsync()
+        {
+               return await _dataContext.Contatos.ToListAsync();
         }
 
-        public Task<Contato> GetContatoByIdAsync(Guid id)
+        public async Task<Contato> GetContatoByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Add<T>(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Delete<T>(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.DeleteRange<T>(T[] entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<bool> IAbstractRepository.SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IAbstractRepository.Update<T>(T entity)
-        {
-            throw new NotImplementedException();
+            return await _dataContext.Contatos.Where(c => c.Id == id).FirstOrDefaultAsync();
         }
     }
 }
