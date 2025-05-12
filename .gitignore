@@ -1,0 +1,38 @@
+# Compilação e saída de dependências
+bin/
+obj/
+*.dll
+*.exe
+
+# Logs e dados temporários
+*.log
+*.tmp
+*.bak
+
+# Configurações do usuário
+*.user
+*.suo
+*.vs
+
+# Diretórios de publicação
+publish/
+wwwroot/
+
+# Arquivos gerados pelo Visual Studio
+.vscode/
+.idea/
+*.sln.cache
+*.ncb
+*.pdb
+*.opendb
+
+# Dependências gerenciadas pelo NuGet
+packages/
+*.nupkg
+
+# Chaves privadas e segredos
+appsettings.Development.json
+appsettings.Local.json
+
+# Arquivos gerados pelo Docker
+docker-compose.override.yml
