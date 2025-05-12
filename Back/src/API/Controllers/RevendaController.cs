@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Responses;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +24,7 @@ namespace API.Controllers
         {
             try
             {
-                var result = new List<Revenda>{new Revenda("123456789", "teste", "teste2", "email", new List<string> { "123456789", "123456789" }, null, null}
-                ,{ new Revenda("123456789", "teste", "teste2", "email", new List<string> { "123456789", "123456789" }, null, null};
-               
-
-                return ApiResponse<IList<Revenda>>.Success(result);
+                return ApiResponse<IList<Revenda>>.Success(null);
             }
             catch(Exception ex) {
 

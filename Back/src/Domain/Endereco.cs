@@ -4,9 +4,9 @@ namespace Domain
 {
     public class Endereco
     {
-        public Guid EnderecoId {  get; private set; }
+        public Guid Id { get; private set; }
         public string Longradouro { get; private set; }
-        public int Numero {  get; private set; }
+        public int Numero { get; private set; }
         public int Cep { get; private set; }
         public string Bairro { get; private set; }
         public string Cidade { get; private set; }
@@ -16,17 +16,26 @@ namespace Domain
 
         public string PontoReferencia { get; private set; }
 
-        public Endereco(string longradouro, int numero, int cep, string bairro, string cidade, string estado, string complemento, string pontoReferencia)
+        public Guid RevendaId { get; private set; }
+        public Revenda Revenda { get; private set; }
+
+        public Endereco()
         {
-            Longradouro = longradouro;
-            Numero = numero;
-            Cep = cep;
-            Bairro = bairro;
-            Cidade = cidade;
-            Estado = estado;
-            Complemento = complemento;
-            PontoReferencia = pontoReferencia;
+            
         }
+
+        //public Endereco(string longradouro, int numero, int cep, string bairro, string cidade, string estado, string complemento, string pontoReferencia)
+        //{
+        //    Id = Guid.NewGuid();
+        //    Longradouro = longradouro;
+        //    Numero = numero;
+        //    Cep = cep;
+        //    Bairro = bairro;
+        //    Cidade = cidade;
+        //    Estado = estado;
+        //    Complemento = complemento;
+        //    PontoReferencia = pontoReferencia;
+        //}
 
     }
 }
