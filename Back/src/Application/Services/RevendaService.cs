@@ -106,7 +106,7 @@ namespace Application.Services
                 var revendaResult = await _revendaRepository.GetRevendaByIdAsync(id);
                 if (revendaResult == null) return null;
 
-                revendaResult.update(id);
+                revenda.Id = revendaResult.Id;
 
                 _mapper.Map(revenda, revendaResult);
 

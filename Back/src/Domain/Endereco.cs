@@ -7,7 +7,7 @@ namespace Domain
         public Guid Id { get; private set; }
         public string Longradouro { get; private set; }
         public int Numero { get; private set; }
-        public int Cep { get; private set; }
+        public string Cep { get; private set; }
         public string Bairro { get; private set; }
         public string Cidade { get; private set; }
         public string Estado { get; private set; }

@@ -40,6 +40,24 @@ namespace API.Controllers
             }   
         }
 
+        [HttpGet("{id}")]
+        public async Task<ApiResponse<RevendaDto>> GetById(Guid id)
+        {
+            try
+            {
+                var result = await _revendaService.GetRevenda(id);
+
+                if (result == null) return ApiResponse<RevendaDto>.Error(NoContent().StatusCode, "Nenhum objeto encontrado");
+
+                return ApiResponse<RevendaDto>.Success(result);
+            }
+            catch (Exception ex)
+            {
+
+                return ApiResponse<RevendaDto>.Error(500, ex.Message);
+            }
+        }
+
 
 
         [HttpPost]
@@ -56,6 +74,44 @@ namespace API.Controllers
             {
 
                 return ApiResponse<RevendaDto>.Error(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ApiResponse<RevendaDto>> Put(Guid id, RevendaDto revendaDto)
+        {
+            try
+            {
+
+                var result = await _revendaService.UpdateRevenda(id, revendaDto);
+
+                if (result == null) return ApiResponse<RevendaDto>.Error(NoContent().StatusCode, "Nenhum objeto encontrado");
+
+                return ApiResponse<RevendaDto>.Success(result);
+            }
+            catch (Exception ex)
+            {
+
+                return ApiResponse<RevendaDto>.Error(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ApiResponse<bool>> Delete(Guid id)
+        {
+            try
+            {
+
+                var result = await _revendaService.DeleteRevenda(id);
+
+                if (!result) return ApiResponse<bool>.Error(BadRequest().StatusCode, "O objeto não foi deletado.");
+
+                return ApiResponse<bool>.Success(result);
+            }
+            catch (Exception ex)
+            {
+
+                return ApiResponse<bool>.Error(500, ex.Message);
             }
         }
     }
