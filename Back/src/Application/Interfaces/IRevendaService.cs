@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using System.Threading.Tasks;
-using Domain;
+using Application.Dtos;
 
 namespace Application.Interfaces
 {
     public interface IRevendaService
     {
-        Task<Revenda> AddRevenda(Revenda revenda);
-        Task<Revenda> UpdateRevenda(Guid id, Revenda revenda);
+        Task<RevendaDto> AddRevenda(RevendaDto revenda);
+        Task<RevendaDto> UpdateRevenda(Guid id, RevendaDto revenda);
         Task<bool> DeleteRevenda(Guid id);
-        Task<Revenda> GetRevenda(Guid id);
-        Task<IList<Revenda>> GetAllRevendas();
+        Task<RevendaDto> GetRevenda(Guid id);
+        Task<IList<RevendaDto>> GetAllRevendas();
     }
 }

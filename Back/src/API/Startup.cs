@@ -1,3 +1,4 @@
+using System;
 using Application.Interfaces;
 using Application.Services;
 using Infra.Context;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace API
 {
@@ -25,6 +27,10 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             //repositories
             services.AddScoped<IRevendaRepository, RevendaRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
@@ -41,7 +47,12 @@ namespace API
 
                 options => options.UseSqlite(Configuration.GetConnectionString("Default"))
                 );
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
