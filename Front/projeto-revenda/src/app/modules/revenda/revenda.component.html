@@ -1,0 +1,37 @@
+<div class="container">
+
+<h2>Revenda</h2>
+<hr>
+
+
+<form action="" class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="Buscar">
+    <button class="btn btn-outline-success">Buscar</button> 
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>Razão Social</th>
+      <th>Nome fantasia</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+      <th>Contato</th>
+      <th>Endereco</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let revenda of revendas">
+      <td>{{revenda.razaoSocial}}</td>
+      <td>{{revenda.nomeFantasia}}</td>
+      <td>{{revenda.email}}</td>
+      <td>{{revenda.telefones[0]?.numero}}</td>
+      <td>{{revenda.contatos[0]?.nome}}</td>
+      <td>{{revenda.enderecos[0]?.longradouro + ", " + revenda.enderecos[0]?.numero + " - " + revenda.enderecos[0]?.bairro}}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

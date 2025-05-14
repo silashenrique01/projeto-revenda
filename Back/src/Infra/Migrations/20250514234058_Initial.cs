@@ -100,6 +100,25 @@ namespace Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Telefone",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Numero = table.Column<string>(type: "TEXT", nullable: true),
+                    RevendaId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Telefone", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Telefone_Revendas_RevendaId",
+                        column: x => x.RevendaId,
+                        principalTable: "Revendas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Contatos_RevendaId",
                 table: "Contatos",
@@ -114,6 +133,11 @@ namespace Infra.Migrations
                 name: "IX_Produto_OrdemId",
                 table: "Produto",
                 column: "OrdemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Telefone_RevendaId",
+                table: "Telefone",
+                column: "RevendaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -128,10 +152,13 @@ namespace Infra.Migrations
                 name: "Produto");
 
             migrationBuilder.DropTable(
-                name: "Revendas");
+                name: "Telefone");
 
             migrationBuilder.DropTable(
                 name: "ordens");
+
+            migrationBuilder.DropTable(
+                name: "Revendas");
         }
     }
 }

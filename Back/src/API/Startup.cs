@@ -43,10 +43,15 @@ namespace API
             services.AddScoped<IOrdemService, OrdemService>();
 
 
+
             services.AddDbContext<DataContext>(
 
                 options => options.UseSqlite(Configuration.GetConnectionString("Default"))
                 );
+
+
+            services.AddCors();
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -74,6 +79,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {

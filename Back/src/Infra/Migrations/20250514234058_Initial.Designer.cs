@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250514031346_Initial")]
+    [Migration("20250514234058_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,6 +139,25 @@ namespace Infra.Migrations
                     b.ToTable("Revendas");
                 });
 
+            modelBuilder.Entity("Domain.Telefone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Numero")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RevendaId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RevendaId");
+
+                    b.ToTable("Telefone");
+                });
+
             modelBuilder.Entity("Domain.Contato", b =>
                 {
                     b.HasOne("Domain.Revenda", "Revenda")
@@ -172,6 +191,17 @@ namespace Infra.Migrations
                     b.Navigation("Ordem");
                 });
 
+            modelBuilder.Entity("Domain.Telefone", b =>
+                {
+                    b.HasOne("Domain.Revenda", "Revenda")
+                        .WithMany("Telefones")
+                        .HasForeignKey("RevendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Revenda");
+                });
+
             modelBuilder.Entity("Domain.Ordem", b =>
                 {
                     b.Navigation("Produtos");
@@ -182,6 +212,8 @@ namespace Infra.Migrations
                     b.Navigation("Contatos");
 
                     b.Navigation("Enderecos");
+
+                    b.Navigation("Telefones");
                 });
 #pragma warning restore 612, 618
         }

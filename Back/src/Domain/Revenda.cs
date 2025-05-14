@@ -11,8 +11,6 @@ namespace Domain
         public string RazaoSocial { get; private set; }
         public string NomeFantasia { get; private set; }
         public string Email { get; private set; }
-
-        [NotMapped]
         public IList<Telefone> Telefones { get; private set; }
         public IList<Contato> Contatos { get; private set; }
         public IList<Endereco> Enderecos { get; private set; }
