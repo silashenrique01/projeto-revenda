@@ -50,8 +50,8 @@ namespace Infra.Migrations
                     b.Property<string>("Bairro")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Cep")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Cep")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Cidade")
                         .HasColumnType("TEXT");
@@ -81,6 +81,39 @@ namespace Infra.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("Domain.Ordem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ordens");
+                });
+
+            modelBuilder.Entity("Domain.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("OrdemId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdemId");
+
+                    b.ToTable("Produto");
+                });
+
             modelBuilder.Entity("Domain.Revenda", b =>
                 {
                     b.Property<Guid>("Id")
@@ -101,7 +134,7 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("revendas");
+                    b.ToTable("Revendas");
                 });
 
             modelBuilder.Entity("Domain.Contato", b =>
@@ -124,6 +157,22 @@ namespace Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Revenda");
+                });
+
+            modelBuilder.Entity("Domain.Produto", b =>
+                {
+                    b.HasOne("Domain.Ordem", "Ordem")
+                        .WithMany("Produtos")
+                        .HasForeignKey("OrdemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ordem");
+                });
+
+            modelBuilder.Entity("Domain.Ordem", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 
             modelBuilder.Entity("Domain.Revenda", b =>

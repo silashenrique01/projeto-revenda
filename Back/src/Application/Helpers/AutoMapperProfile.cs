@@ -12,6 +12,8 @@ namespace Application.Helpers
             CreateMap<Endereco, EnderecoDto>().ReverseMap();
             CreateMap<Contato, ContatoDto>().ReverseMap();
             CreateMap<Telefone, TelefoneDto>().ReverseMap();
+            CreateMap<Ordem, OrdemDto>().ReverseMap();
+            CreateMap<Produto, ProdutoDto>().ReverseMap();
         }
 
     }

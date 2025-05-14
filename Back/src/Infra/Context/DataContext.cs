@@ -9,11 +9,7 @@ namespace Infra.Context
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Contato> Contatos { get; set; }
         public DbSet<Revenda> Revendas { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //   modelBuilder.Entity<Revenda>().HasKey(key  => key.Id, );
-        //}
+        public DbSet<Ordem> ordens { get; set; }
 
     }
 }

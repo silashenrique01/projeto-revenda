@@ -36,11 +36,11 @@ namespace API
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<IContatoRepository, ContatoRepository>();
             services.AddScoped<IAbstractRepository, AbstractRepository>();
+            services.AddScoped<IOrdemRepository, OrdemRepository>();
 
             //services
             services.AddScoped<IRevendaService, RevendaService>();
-            services.AddScoped<IContatoRepository, ContatoRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IOrdemService, OrdemService>();
 
 
             services.AddDbContext<DataContext>(
