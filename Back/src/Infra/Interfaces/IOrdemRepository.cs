@@ -10,5 +10,7 @@ namespace Infra.Interfaces
         Task<IList<Ordem>> GetAllOrdens();
 
         Task<Ordem> GetOrdemById(Guid id);
+
+        Task<IList<Ordem>> GetOrdemByRevenda(Guid id);
     }
 }

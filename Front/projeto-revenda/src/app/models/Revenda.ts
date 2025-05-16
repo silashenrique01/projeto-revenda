@@ -1,24 +1,25 @@
-export interface Revenda {
+export class Revenda {
+  id:string;
   cnpj: string;
   razaoSocial: string;
   nomeFantasia: string;
   email: string;
-  telefones: Telefone[];
-  contatos: Contato[];
-  enderecos: Endereco[];
+  telefones: Telefone[] = [];
+  contatos: Contato[] = [];
+  enderecos: Endereco[] = [];
 }
 
-export interface Telefone {
+export class Telefone {
   numero: string;
 }
 
-export interface Contato {
+export class Contato {
   nome: string;
   sobrenome: string;
   contatoPrincipal: boolean;
 }
 
-export interface Endereco {
+export class Endereco {
   longradouro: string;
   numero: string;
   cidade: string;

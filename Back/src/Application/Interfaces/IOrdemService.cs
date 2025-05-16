@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Dtos;
+using Domain;
 
 namespace Application.Interfaces
 {
@@ -12,5 +13,7 @@ namespace Application.Interfaces
         Task<OrdemDto> AddOrdem(OrdemDto ordemDto);
         Task<OrdemDto> UpdateOrdem(Guid id, OrdemDto ordemDto);
         Task<bool> DeleteOrdem(Guid id);
+
+        Task<IList<OrdemDto>> GetOrdemByRevenda(Guid id);
     }
 }

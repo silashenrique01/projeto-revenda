@@ -1,45 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiResponse } from 'src/app/models/ApiResponse';
-import { Revenda } from 'src/app/models/Revenda';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ValidatorCnpj } from 'src/app/models/helpers/validator-cnpj';
+import { Contato, Endereco, Revenda, Telefone } from 'src/app/models/Revenda';
 import { RevendaService } from 'src/app/services/revenda.service';
-export const MOCK_REVENDAS: Revenda[] = [
-  {
-    cnpj: '12.345.678/0001-99',
-    razaoSocial: 'Revenda Automotiva LTDA',
-    nomeFantasia: 'AutoRevenda',
-    email: 'contato@autorevenda.com.br',
-    telefones: [
-      { numero: '(11) 98765-4321'},
-      { numero: '(11) 3456-7890' }
-    ],
-    contatos: [
-      { nome: 'João Silva', sobrenome: 'joao.silva@autorevenda.com.br', contatoPrincipal: true },
-      { nome: 'Maria Oliveira', sobrenome: 'maria.oliveira@autorevenda.com.br', contatoPrincipal: false }
-    ],
-    enderecos: [
-      { longradouro: 'Av. Paulista', numero: '1000', cidade: 'São Paulo', estado: 'SP', cep: '01311-000', bairro:"Jardim Vergueiro", complemento: "", pontoReferencia: "" },
-      { longradouro: 'Rua das Flores', numero: '200', cidade: 'Campinas', estado: 'SP', cep: '13000-000', bairro:"Jardim Vergueiro", complemento: "", pontoReferencia: "" }
-    ]
-  },
-  {
-    cnpj: '98.765.432/0001-55',
-    razaoSocial: 'Super Carros LTDA',
-    nomeFantasia: 'SuperCar',
-    email: 'contato@supercar.com.br',
-    telefones: [
-      { numero: '(21) 91234-5678'}
-    ],
-   contatos: [
-      { nome: 'João Silva', sobrenome: 'joao.silva@autorevenda.com.br', contatoPrincipal: true },
-      { nome: 'Maria Oliveira', sobrenome: 'maria.oliveira@autorevenda.com.br', contatoPrincipal: false }
-    ],
-   enderecos: [
-      { longradouro: 'Av. Paulista', numero: '5000', cidade: 'São Paulo', estado: 'SP', cep: '01311-000', bairro:"Jardim Vergueiro", complemento: "", pontoReferencia: "" },
-      { longradouro: 'Rua das Flores', numero: '850', cidade: 'Campinas', estado: 'SP', cep: '13000-000', bairro:"Jardim Vergueiro", complemento: "", pontoReferencia: "" }
-    ]
-  }
-];
 
+export function phoneValidator(control: AbstractControl): ValidationErrors | null {
+  const phonePattern = /^(?:\(?\d{2}\)?[\s-]?)?(?:9\d{4}[\s-]?\d{4}|\d{4}[\s-]?\d{4})$/;
+  return phonePattern.test(control.value) ? null : { invalidPhone: true };
+}
 
 @Component({
   selector: 'app-cadastro',
@@ -47,19 +17,100 @@ export const MOCK_REVENDAS: Revenda[] = [
   styleUrls: ['./cadastro.component.scss']
 })
 export class CadastroComponent implements OnInit {
-
-  constructor(private revendaService: RevendaService) { }
-
-  ngOnInit() {
-    this.AddRevenda(MOCK_REVENDAS[0])
+  formGroup: FormGroup = new FormGroup({});
+  contatoformGroup: FormGroup = new FormGroup({});
+  enderecoformGroup: FormGroup = new FormGroup({});
+;
+  get f():any{
+    return this.formGroup.controls;
+  }
+ 
+  get c():any{
+    return this.contatoformGroup.controls;
   }
 
+  get e():any{
+    return this.enderecoformGroup.controls;
+  }
+
+ 
+  
+
+  constructor(private revendaService: RevendaService, private fb: FormBuilder, private toastr: ToastrService, private router: Router) { }
+
+  ngOnInit() {
+    this.validation();
+  }
+
+  public validation():void{
+    this.formGroup = this.fb.group({
+       cnpj:['', [Validators.required, ValidatorCnpj.validate]],
+       razaoSocial:['', [Validators.required]],
+       nomeFantasia:['', [Validators.required]],
+       email:['', Validators.required, Validators.email],
+       telefones:  [],
+       contatos:  [],
+       numero: ['', phoneValidator],
+       enderecos: []
+    })
+
+    this.contatoformGroup = this.fb.group({
+      nomePrincipal:['', Validators.required],
+      nomeSecundario: ['']
+    })
+
+    this.enderecoformGroup = this.fb.group({
+      longradouro:['', Validators.required],
+      numero:['', Validators.required],
+      cidade:['', Validators.required],
+      estado:['', Validators.required],
+      bairro:['', Validators.required],
+      cep:['', Validators.required],
+      complemento:['', ],
+      pontoReferencia:['']
+    })
+
+  }
+
+
+ 
+
+  adicionarTelefone(): void {
+    const numero = this.formGroup.get('numero')?.value;
+  }
+
+  enviar(){
+    console.log(this.formGroup.controls);
+
+
+    var enderecos:Endereco[] = []
+    enderecos.push(this.enderecoformGroup.value)
+    this.formGroup.get('enderecos')?.setValue(enderecos)
+    
+    var telefones:Telefone[] = []
+    telefones.push({numero:this.formGroup.get('numero')?.value})
+    this.formGroup.get('telefones')?.setValue(telefones)
+    
+    var contato:Contato[] = []
+    contato.push({nome: this.contatoformGroup.get('nomePrincipal')?.value, sobrenome:"", contatoPrincipal:true}, {nome:this.contatoformGroup.get('nomeSecundario')?.value, sobrenome:"", contatoPrincipal:false})
+    this.formGroup.get('contatos')?.setValue(contato)
+
+    var revenda = new Revenda();
+    revenda = this.formGroup.value;
+
+    this.AddRevenda(revenda);
+
+
+  }
 
   AddRevenda(revenda: Revenda){
     this.revendaService.addRevenda(revenda).subscribe((res)=>{
       console.log(res)
+       this.toastr.success('Cadastrado realizado', 'Sucesso');
+       this.router.navigate(['/registro']);
     }, (error) => {
       console.error(error);
+      this.toastr.error('Não foi possivel realizar o cadastro', 'Erro');
     })
   }
 

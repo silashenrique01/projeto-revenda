@@ -12,7 +12,8 @@ namespace Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ClienteId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    ClienteId = table.Column<long>(type: "INTEGER", nullable: false),
+                    RevendaId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,6 +40,7 @@ namespace Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
                     Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
                     OrdemId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },

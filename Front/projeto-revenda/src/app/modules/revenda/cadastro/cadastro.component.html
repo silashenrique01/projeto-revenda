@@ -1,55 +1,173 @@
 <div class="container">
-<h2>Cadastro Revendedora</h2>
+  <h2>Cadastro Revendedora</h2>
 
-<div class="card rounded shadow-sm">
-<form action="">
-  <div class="p-3"></div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Cnpj</label>
-      <input type="text" class="form-control" placeholder="CNPJ" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Razão Social</label>
-      <input type="text" class="form-control" placeholder="Razão Social" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Nome Fantasia</label>
-      <input type="text" class="form-control" placeholder="Nome Fantasia" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>E-mail</label>
-      <input type="text" class="form-control" placeholder="E-mail" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Telefone</label>
-      <input type="text" class="form-control" placeholder="Telefone" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Contato</label>
-      <input type="text" class="form-control" placeholder="Contato" >
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Endereço</label>
-      <input type="text" class="form-control" placeholder="Endereço" >
-    </div>
-  </div>
-</form>  
+  <div class="card rounded shadow-sm formulario">
+    <form [formGroup]="formGroup">
+      <div class="p-3">
 
-</div>
+        <div class="form-row">
+
+          <div class="form-group col-md-12">
+            <label>CNPJ</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':f.cnpj?.errors && f.cnpj?.touched}"
+              formControlName="cnpj" placeholder="CNPJ">
+            <div *ngIf="f.cnpj?.errors?.invalidCnpj && f.cnpj?.touched">
+              <span style="color: red;">CNPJ inválido!</span>
+            </div>
+            <div *ngIf="f.cnpj?.errors?.required && f.cnpj?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+
+          </div>
 
 
+          <div class="form-group col-md-12">
+            <label>Razão Social</label>
+            <input type="text" class="form-control is-invalid"
+              [ngClass]="{'is-invalid':f.razaoSocial?.errors && f.razaoSocial?.touched}" formControlName="razaoSocial"
+              placeholder="Razão Social">
+            <div *ngIf="f.razaoSocial?.errors?.required && f.razaoSocial?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-12">
+            <label>Nome Fantasia</label>
+            <input type="text" class="form-control is-invalid"
+              [ngClass]="{'is-invalid':f.nomeFantasia?.errors && f.nomeFantasia?.touched}"
+              formControlName="nomeFantasia" placeholder="Nome Fantasia">
+            <div *ngIf="f.nomeFantasia?.errors?.required && f.nomeFantasia?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label>E-mail</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':f.email?.errors && f.email?.touched}"
+              formControlName="email" placeholder="E-mail">
+            <div *ngIf="f.email?.errors?.required && f.email?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+            <div *ngIf="f.email?.errors?.email && f.email?.touched">
+              <span style="color: red;">E-mail inválido</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Telefone</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':f.numero?.errors && f.numero?.touched}"
+              formControlName="numero" (blur)="adicionarTelefone()" placeholder="Telefone">
+            <div *ngIf="f.numero?.errors?.invalidPhone && f.numero?.touched">
+              <span style="color: red;">Telefone inválido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row p-3">
+        <div class="form-group col-12">
+          <button class="btn btn-lg btn-success btn-block px-5" (click)="enviar()">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+
+    <form [formGroup]="enderecoformGroup">
+      <div class="p-3">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Longradouro</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':e.longradouro?.errors && e.longradouro?.touched}" formControlName="longradouro"
+              placeholder="Longradouro">
+            <div *ngIf="e.longradouro?.errors?.required && e.longradouro?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Número</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':e.numero?.errors && e.numero?.touched}"
+              formControlName="numero" placeholder="Número">
+            <div *ngIf="e.numero?.errors?.required && e.numero?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-5">
+            <label>Complemento</label>
+            <input type="text" class="form-control" formControlName="complemento" placeholder="Complemento">
+          </div>
+
+          <div class="form-group col-md-7">
+            <label>Ponto de Referência</label>
+            <input type="text" class="form-control" formControlName="pontoReferencia" placeholder="Ponto de Referencia">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>CEP</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':e.cep?.errors && e.cep?.touched}"
+              formControlName="cep" placeholder="CEP">
+            <div *ngIf="e.cep?.errors?.required && e.cep?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Bairro</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':e.bairro?.errors && e.bairro?.touched}"
+              formControlName="bairro" placeholder="Bairro">
+            <div *ngIf="e.bairro?.errors?.required && e.bairro?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Cidade</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':e.cidade?.errors && e.cidade?.touched}"
+              formControlName="cidade" placeholder="Cidade">
+            <div *ngIf="e.cidade?.errors?.required && e.cidade?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Estado</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':e.estado?.errors && e.estado?.touched}"
+              formControlName="estado" placeholder="Estado">
+            <div *ngIf="e.estado?.errors?.required && e.estado?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <form [formGroup]="contatoformGroup">
+      <div class="p-3">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>1º Contato</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':c.nomePrincipal?.errors && c.nomePrincipal?.touched}"
+              formControlName="nomePrincipal" placeholder="Nome">
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>2º Contato</label>
+            <input type="text" class="form-control" formControlName="nomeSecundario" placeholder="Nome">
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </form>
+  </div>
 
 </div>

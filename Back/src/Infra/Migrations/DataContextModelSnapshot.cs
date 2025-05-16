@@ -87,7 +87,10 @@ namespace Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ClienteId")
+                    b.Property<long>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("RevendaId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -99,6 +102,9 @@ namespace Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("OrdemId")

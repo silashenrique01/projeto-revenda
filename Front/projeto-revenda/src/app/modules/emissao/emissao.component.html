@@ -1,0 +1,59 @@
+<div class="container">
+  <h2>Registrar pedido do cliente</h2>
+
+  <div class="card rounded shadow-sm formulario">
+    <form [formGroup]="formGroup">
+      <div class="p-3">
+
+
+    <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Selecione uma opção:</label>
+            <select formControlName="revenda" class="form-control" (change)="getAll($event)">
+              <option *ngFor="let revenda of revendas"  [value]="revenda.id">{{ revenda.nomeFantasia }}</option>
+            </select>
+
+            <div *ngIf="f.revenda?.errors?.required && f.revenda?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="escolha">Selecione uma opção:</label>
+            <select id="escolha" formControlName="pedido" class="form-control" multiple>
+              <option *ngFor="let pedido of pedidos" [value]="pedido">{{ pedido.id }}</option>
+            </select>
+
+            <div *ngIf="f.revenda?.errors?.required && f.revenda?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+
+            <div *ngIf="f.revenda?.errors?.required && f.revenda?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+      <div class="form-row p-3">
+        <div class="form-group col-12">
+          <button class="btn btn-lg btn-success btn-block px-5" (click)="enviar()">
+            Enviar
+          </button>
+        </div>
+      </div>
+
+      </div>
+
+    </form>
+  </div>
+
+</div>

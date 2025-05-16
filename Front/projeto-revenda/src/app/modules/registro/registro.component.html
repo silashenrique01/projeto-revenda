@@ -1,0 +1,33 @@
+<div class="container">
+
+<h2>Revenda</h2>
+<hr>
+
+
+<form action="" class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="Buscar">
+    <button class="btn btn-outline-success">Buscar</button> 
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID Cliente</th>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Revenda</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pedido of pedidos">
+      <td>{{pedido.clienteId}}</td>
+      <td>{{pedido.produtos[0]?.nome}}</td>
+      <td>{{pedido.produtos[0]?.quantidade}}</td>
+      <td>{{pedido.revenda}}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

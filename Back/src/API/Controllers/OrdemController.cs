@@ -60,6 +60,25 @@ namespace API.Controllers
                 return ApiResponse<OrdemDto>.Error(500, ex.Message);
             }
         }
+        
+        
+        [HttpGet("GetByRevenda/{id}")]
+        public async Task<ApiResponse<IList<OrdemDto>>> GetByRevenda(Guid id)
+        {
+            try
+            {
+                var result = await _ordemService.GetOrdemByRevenda(id);
+
+                if (result == null) return ApiResponse<IList<OrdemDto>>.Error(NoContent().StatusCode, "Nenhum objeto encontrado");
+
+                return ApiResponse<IList<OrdemDto>>.Success(result);
+            }
+            catch (Exception ex)
+            {
+
+                return ApiResponse<IList<OrdemDto>>.Error(500, ex.Message);
+            }
+        }
 
 
 
@@ -119,8 +138,8 @@ namespace API.Controllers
         }
 
         //MOCK
-        [HttpPost("api/pedidos-revenda")]
-        public async Task<IActionResult> CriarPedido([FromBody] OrdemRevendaDto ordemRevendaDto)
+        [HttpPost("pedidos-revenda")]
+        public async Task<IActionResult> CriarPedido([FromBody] OrdemDto ordemRevendaDto)
         {
             if (ordemRevendaDto.Produtos.Sum(i => i.Quantidade) < 1000)
             {

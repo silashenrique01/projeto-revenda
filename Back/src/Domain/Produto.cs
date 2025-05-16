@@ -6,6 +6,7 @@ namespace Domain
     {
         public Guid Id { get; private set; }
 
+        public string Nome { get; set; }
         public int Quantidade { get; private set; }
 
         public Guid OrdemId { get; private set; }

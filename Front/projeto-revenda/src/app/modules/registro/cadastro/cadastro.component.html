@@ -1,0 +1,69 @@
+<div class="container">
+  <h2>Registrar pedido do cliente</h2>
+
+  <div class="card rounded shadow-sm formulario">
+    <form [formGroup]="formGroup">
+      <div class="p-3">
+
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="escolha">Selecione uma opção:</label>
+            <select id="escolha" formControlName="revendaId" class="form-control">
+              <option *ngFor="let revenda of revendas" [value]="revenda.id">{{ revenda.nomeFantasia }}</option>
+            </select>
+
+            <div *ngIf="f.revenda?.errors?.required && f.revenda?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Documento do cliente</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':f.clienteId?.errors && f.clienteId?.touched}" formControlName="clienteId"
+              placeholder="Documento">
+            <div *ngIf="f.clienteId?.errors?.required && f.clienteId?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Produto</label>
+            <input type="text" class="form-control" [ngClass]="{'is-invalid':f.produto?.errors && f.produto?.touched}"
+              formControlName="produto" placeholder="Produto">
+            <div *ngIf="f.produto?.errors?.required && f.produto?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Quantidade</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':f.quantidade?.errors && f.quantidade?.touched}" formControlName="quantidade"
+              placeholder="Quantidade">
+            <div *ngIf="f.quantidade?.errors?.required && f.quantidade?.touched">
+              <span style="color: red;">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row p-3">
+        <div class="form-group col-12">
+          <button class="btn btn-lg btn-success btn-block px-5" (click)="enviar()">
+            Enviar
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</div>

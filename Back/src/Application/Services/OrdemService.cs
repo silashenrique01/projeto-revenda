@@ -98,6 +98,24 @@ namespace Application.Services
             }
         }
 
+        public async Task<IList<OrdemDto>> GetOrdemByRevenda(Guid id)
+        {
+            try
+            {
+                var result = await _ordemRepository.GetOrdemByRevenda(id);
+                if (result == null) throw new Exception("Nenhum objeto encontrado");
+
+                var ordem = _mapper.Map<IList<OrdemDto>>(result);
+
+                return ordem;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<OrdemDto> UpdateOrdem(Guid id, OrdemDto ordemDto)
         {
             try

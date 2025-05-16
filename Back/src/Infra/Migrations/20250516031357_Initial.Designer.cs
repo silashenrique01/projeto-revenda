@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250514234058_Initial")]
+    [Migration("20250516031357_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,10 @@ namespace Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ClienteId")
+                    b.Property<long>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("RevendaId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -101,6 +104,9 @@ namespace Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("OrdemId")

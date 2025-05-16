@@ -29,5 +29,12 @@ namespace Infra.Repositories
 
             return await query.OrderBy(o => o.ClienteId).Where(o => o.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<IList<Ordem>> GetOrdemByRevenda(Guid id)
+        {
+            IQueryable<Ordem> query = _dataContext.ordens.Include(o => o.Produtos);
+
+            return await query.OrderBy(o => o.ClienteId).Where(o => o.RevendaId == id).ToListAsync();
+        }
     }
 }

@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RevendaComponent } from './revenda.component';
-import { RevendaRoutingModule } from './revenda-routing.module';
+import { RegistroComponent } from './registro.component';
+import { RegistroRoutingModule } from './registro.routing';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    RevendaRoutingModule,
+    RegistroRoutingModule,
     FormsModule,
     ReactiveFormsModule
-    
   ],
-  declarations: [RevendaComponent, CadastroComponent]
+  declarations: [RegistroComponent, CadastroComponent]
 })
-export class RevendaModule { }
+export class RegistroModule { }
