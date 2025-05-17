@@ -8,5 +8,10 @@ namespace Domain
         public string Numero { get; set; }
         public Revenda Revenda { get; set; }
         public Guid RevendaId { get; set; }
+
+        public Telefone()
+        {
+            
+        }
     }
 }

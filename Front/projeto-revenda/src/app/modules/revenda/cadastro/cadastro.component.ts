@@ -106,8 +106,8 @@ export class CadastroComponent implements OnInit {
   AddRevenda(revenda: Revenda){
     this.revendaService.addRevenda(revenda).subscribe((res)=>{
       console.log(res)
-       this.toastr.success('Cadastrado realizado', 'Sucesso');
-       this.router.navigate(['/registro']);
+       this.toastr.success('Cadastro realizado', 'Sucesso');
+       this.router.navigate(['/revenda']);
     }, (error) => {
       console.error(error);
       this.toastr.error('Não foi possivel realizar o cadastro', 'Erro');

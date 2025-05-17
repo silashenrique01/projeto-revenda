@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { retry } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { Pedido, Produto } from 'src/app/models/Pedido';
 import { Revenda } from 'src/app/models/Revenda';
@@ -18,7 +20,7 @@ export class EmissaoComponent implements OnInit {
   revendas:Revenda[] = [];
   formGroup: FormGroup = new FormGroup({});
   revendaSelecionada = "";
-
+  errorEmissao = false;
      get f():any{
     return this.formGroup.controls;
   }
@@ -67,15 +69,21 @@ export class EmissaoComponent implements OnInit {
     this.pedidos[0].produtos = produtos;
     console.log(produtos)
 
-    this.service.emitirPedido(this.pedidos[0]).subscribe((res:any) =>{
+    this.service.emitirPedido(this.pedidos[0]).pipe(
+      retry(3), // Tenta novamente até 3 vezes
+    )  
+    .subscribe((res:any) =>{
       console.log(res);
         this.toastr.success(`Pedido realizado, protocolo: ${res.ordemRevendaId}`, 'Sucesso');
+        this.errorEmissao = false;
        this.router.navigate(['/registro']);
 
-    }, (error) =>{
-       this.toastr.error('Não foi possivel realizar o cadastro', 'Erro');
-      console.log(error)
-    })
+    }, (error:any) =>{
+       this.toastr.error(`${error?.error.mensagem}`, 'Erro');
+      this.errorEmissao = true;
+        console.log(error)
+
+    });
   }
 
 }

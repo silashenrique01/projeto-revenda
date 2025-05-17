@@ -52,7 +52,7 @@ export class CadastroComponent implements OnInit {
 
       this.serviceRegistro.addRegistro(pedido).subscribe((res:ApiResponse<Pedido>) => {
         console.log(res);
-        this.toastr.success('Cadastrado realizado', 'Sucesso');
+        this.toastr.success('Cadastro realizado', 'Sucesso');
        this.router.navigate(['/registro']);
       }, (error) =>{
  this.toastr.error('Não foi possivel realizar a emissão do pedido', 'Erro');

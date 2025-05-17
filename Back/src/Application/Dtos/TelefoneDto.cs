@@ -8,7 +8,7 @@ namespace Application.Dtos
         [Phone(ErrorMessage = "O número de telefone está inválido")]
         public string Numero { get; set; }
 
-        public RevendaDto RevendaDto { get; set; }
-        public Guid RevendaDtoId { get; set; }
+        public RevendaDto Revenda { get; set; }
+        public Guid RevendaId { get; set; }
     }
 }

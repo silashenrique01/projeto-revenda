@@ -32,6 +32,8 @@ namespace Application.Dtos
         [Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public IList<EnderecoDto> Enderecos { get;  set; }
 
+        public IList<OrdemDto> Ordens { get; set; }
+
         public RevendaDto()
         {
 

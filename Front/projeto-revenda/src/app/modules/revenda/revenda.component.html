@@ -28,7 +28,8 @@
       <td>{{revenda.nomeFantasia}}</td>
       <td>{{revenda.email}}</td>
       <td>{{revenda.telefones[0]?.numero}}</td>
-      <td>{{revenda.contatos[0]?.nome}}</td>
+      <td *ngIf="revenda.contatos[0]?.contatoPrincipal" >{{revenda.contatos[0]?.nome}}</td>
+      <td *ngIf="!revenda.contatos[0]?.contatoPrincipal" >{{revenda.contatos[1]?.nome}}</td>
       <td>{{revenda.enderecos[0]?.longradouro + ", " + revenda.enderecos[0]?.numero + " - " + revenda.enderecos[0]?.bairro}}</td>
     </tr>
   </tbody>

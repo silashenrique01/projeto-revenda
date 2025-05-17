@@ -19,7 +19,7 @@ namespace Infra.Repositories
 
         public async Task<IList<Revenda>> GetAllRevendasAsync()
         {
-            IQueryable<Revenda> query = _dataContext.Revendas.Include(r => r.Enderecos).Include(r => r.Contatos);
+            IQueryable<Revenda> query = _dataContext.Revendas.Include(r => r.Enderecos).Include(r => r.Contatos).Include(r =>  r.Telefones);
 
             return await query.OrderBy(r => r.RazaoSocial).ToListAsync();
         }

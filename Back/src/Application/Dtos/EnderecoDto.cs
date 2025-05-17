@@ -24,19 +24,6 @@ namespace Application.Dtos
             
         }
 
-        //public Endereco(string longradouro, int numero, int cep, string bairro, string cidade, string estado, string complemento, string pontoReferencia)
-        //{
-        //    Id = Guid.NewGuid();
-        //    Longradouro = longradouro;
-        //    Numero = numero;
-        //    Cep = cep;
-        //    Bairro = bairro;
-        //    Cidade = cidade;
-        //    Estado = estado;
-        //    Complemento = complemento;
-        //    PontoReferencia = pontoReferencia;
-        //}
-
     }
 }
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250516031357_Initial")]
+    [Migration("20250517185050_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,8 @@ namespace Infra.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RevendaId");
 
                     b.ToTable("ordens");
                 });
@@ -186,6 +188,17 @@ namespace Infra.Migrations
                     b.Navigation("Revenda");
                 });
 
+            modelBuilder.Entity("Domain.Ordem", b =>
+                {
+                    b.HasOne("Domain.Revenda", "Revenda")
+                        .WithMany("Ordens")
+                        .HasForeignKey("RevendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Revenda");
+                });
+
             modelBuilder.Entity("Domain.Produto", b =>
                 {
                     b.HasOne("Domain.Ordem", "Ordem")
@@ -218,6 +231,8 @@ namespace Infra.Migrations
                     b.Navigation("Contatos");
 
                     b.Navigation("Enderecos");
+
+                    b.Navigation("Ordens");
 
                     b.Navigation("Telefones");
                 });

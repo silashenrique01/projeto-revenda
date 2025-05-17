@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using API.Responses;
 using Application.Dtos;
 using Application.Interfaces;
+using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Polly.Retry;
+using Polly;
 
 namespace API.Controllers
 {
@@ -14,8 +18,6 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class OrdemController : ControllerBase
     {
-
-
         private readonly ILogger<OrdemController> _logger;
         private readonly IOrdemService _ordemService;
 
@@ -60,8 +62,8 @@ namespace API.Controllers
                 return ApiResponse<OrdemDto>.Error(500, ex.Message);
             }
         }
-        
-        
+
+
         [HttpGet("GetByRevenda/{id}")]
         public async Task<ApiResponse<IList<OrdemDto>>> GetByRevenda(Guid id)
         {
@@ -139,14 +141,17 @@ namespace API.Controllers
 
         //MOCK
         [HttpPost("pedidos-revenda")]
-        public async Task<IActionResult> CriarPedido([FromBody] OrdemDto ordemRevendaDto)
+        public IActionResult CriarPedido([FromBody] OrdemDto ordemRevendaDto)
         {
             if (ordemRevendaDto.Produtos.Sum(i => i.Quantidade) < 1000)
             {
                 return BadRequest(new { status = "Erro", mensagem = "Pedido mínimo de 1000 unidades não atingido!" });
             }
+            else
+            {
+                return Ok(new { OrdemRevendaId = Guid.NewGuid(), status = "Processado", mensagem = "Pedido recebido com sucesso" });
+            }
 
-            return Ok(new { OrdemRevendaId = Guid.NewGuid(), status = "Processado", mensagem = "Pedido recebido com sucesso" });
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Infra.Repositories
         }
         public async Task<IList<Ordem>> GetAllOrdens()
         {
-            IQueryable<Ordem> query = _dataContext.ordens.Include(o => o.Produtos);
+            IQueryable<Ordem> query = _dataContext.ordens.Include(o => o.Produtos).Include(o => o.Revenda);
 
             return await query.OrderBy(o => o.ClienteId).ToListAsync();
         }

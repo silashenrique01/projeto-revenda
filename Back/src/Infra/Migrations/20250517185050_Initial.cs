@@ -8,19 +8,6 @@ namespace Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ordens",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ClienteId = table.Column<long>(type: "INTEGER", nullable: false),
-                    RevendaId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ordens", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Revendas",
                 columns: table => new
                 {
@@ -33,26 +20,6 @@ namespace Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Revendas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Produto",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrdemId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Produto", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Produto_ordens_OrdemId",
-                        column: x => x.OrdemId,
-                        principalTable: "ordens",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,6 +70,25 @@ namespace Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ordens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ClienteId = table.Column<long>(type: "INTEGER", nullable: false),
+                    RevendaId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ordens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ordens_Revendas_RevendaId",
+                        column: x => x.RevendaId,
+                        principalTable: "Revendas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Telefone",
                 columns: table => new
                 {
@@ -121,6 +107,26 @@ namespace Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Produto",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrdemId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produto", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Produto_ordens_OrdemId",
+                        column: x => x.OrdemId,
+                        principalTable: "ordens",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Contatos_RevendaId",
                 table: "Contatos",
@@ -129,6 +135,11 @@ namespace Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Enderecos_RevendaId",
                 table: "Enderecos",
+                column: "RevendaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ordens_RevendaId",
+                table: "ordens",
                 column: "RevendaId");
 
             migrationBuilder.CreateIndex(

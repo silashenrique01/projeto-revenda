@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pedido, Produto } from '../models/Pedido';
 import { ApiResponse } from '../models/ApiResponse';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +26,10 @@ addRegistro(pedido: Pedido){
   return this.http.post<ApiResponse<Pedido>>(`${this.api}`, pedido);
 }
 
-emitirPedido(produto:any){
-  return this.http.post<ApiResponse<Pedido>>(`${this.api}/pedidos-revenda`, produto);
+emitirPedido(produto:any): Observable<any> {
+    return this.http.post<ApiResponse<Pedido>>(`${this.api}/pedidos-revenda`, produto)
 }
+
 
 
 }

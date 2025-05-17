@@ -95,6 +95,8 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RevendaId");
+
                     b.ToTable("ordens");
                 });
 
@@ -184,6 +186,17 @@ namespace Infra.Migrations
                     b.Navigation("Revenda");
                 });
 
+            modelBuilder.Entity("Domain.Ordem", b =>
+                {
+                    b.HasOne("Domain.Revenda", "Revenda")
+                        .WithMany("Ordens")
+                        .HasForeignKey("RevendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Revenda");
+                });
+
             modelBuilder.Entity("Domain.Produto", b =>
                 {
                     b.HasOne("Domain.Ordem", "Ordem")
@@ -216,6 +229,8 @@ namespace Infra.Migrations
                     b.Navigation("Contatos");
 
                     b.Navigation("Enderecos");
+
+                    b.Navigation("Ordens");
 
                     b.Navigation("Telefones");
                 });

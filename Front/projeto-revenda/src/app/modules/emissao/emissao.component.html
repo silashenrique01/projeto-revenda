@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Registrar pedido do cliente</h2>
+  <h2>Emitir pedido do cliente</h2>
 
   <div class="card rounded shadow-sm formulario">
     <form [formGroup]="formGroup">
@@ -8,7 +8,7 @@
 
     <div class="form-row">
           <div class="form-group col-md-12">
-            <label>Selecione uma opção:</label>
+            <label>Selecione a revenda:</label>
             <select formControlName="revenda" class="form-control" (change)="getAll($event)">
               <option *ngFor="let revenda of revendas"  [value]="revenda.id">{{ revenda.nomeFantasia }}</option>
             </select>
@@ -22,7 +22,7 @@
 
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label for="escolha">Selecione uma opção:</label>
+            <label for="escolha">Selecione o pedido do cliente:</label>
             <select id="escolha" formControlName="pedido" class="form-control" multiple>
               <option *ngFor="let pedido of pedidos" [value]="pedido">{{ pedido.id }}</option>
             </select>
@@ -45,8 +45,18 @@
 
       <div class="form-row p-3">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5" (click)="enviar()">
+          <button class="btn btn-lg btn-success btn-block px-5" [disabled]="errorEmissao"
+          (click)="enviar()">
             Enviar
+          </button>
+        </div>
+      </div>
+  
+      <div *ngIf="errorEmissao" class="form-row p-3">
+        <div class="form-group col-12">
+          <button class="btn btn-lg btn-info btn-block px-5" (click)="enviar()">
+            
+            Reenviar Pedido
           </button>
         </div>
       </div>

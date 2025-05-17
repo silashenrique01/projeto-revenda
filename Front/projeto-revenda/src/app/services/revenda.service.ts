@@ -16,6 +16,10 @@ getAllRevendas(){
   return this.http.get<ApiResponse<Revenda[]>>(`${this.api}`);
 }
 
+getRevendaById(id:string){
+  return this.http.get<ApiResponse<Revenda>>(`${this.api}/${id}`);
+}
+
 addRevenda(revenda: Revenda){
   return this.http.post(`${this.api}`, revenda);
 }

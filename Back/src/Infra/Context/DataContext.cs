@@ -11,5 +11,6 @@ namespace Infra.Context
         public DbSet<Revenda> Revendas { get; set; }
         public DbSet<Ordem> ordens { get; set; }
 
+
     }
 }

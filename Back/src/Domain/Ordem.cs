@@ -12,6 +12,8 @@ namespace Domain
         public IList<Produto> Produtos { get; private set; }
 
         public Guid RevendaId { get; set; }
+        public Revenda Revenda { get; set; }
+
 
         public Ordem()
         {

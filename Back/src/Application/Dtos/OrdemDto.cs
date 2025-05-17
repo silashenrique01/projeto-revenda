@@ -10,6 +10,7 @@ namespace Application.Dtos
         public IList<ProdutoDto> Produtos { get; set; }
 
         public Guid RevendaId { get; set; }
+        public RevendaDto Revenda { get; set; }
 
         public OrdemDto()
         {

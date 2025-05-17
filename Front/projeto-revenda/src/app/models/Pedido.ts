@@ -4,7 +4,7 @@ export class Pedido {
     id:string;
     produtos:Produto[] = [];
     revendaId:string;
-    revenda:string;
+    revenda:Revenda;
     clienteId:string;
 }
 
