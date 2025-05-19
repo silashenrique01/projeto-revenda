@@ -32,15 +32,22 @@ namespace API.Controllers
         {
             try
             {
+                _logger.LogInformation("Recebendo requisição para buscar pedidos...");
+
                 var result = await _ordemService.GetAllOrdens();
 
-                if (result == null) return ApiResponse<IList<OrdemDto>>.Error(NoContent().StatusCode, "Nenhum objeto encontrado");
+                if (result == null)
+                {
+                    _logger.LogWarning("Nenhum pedido encontrado!");
+                    return ApiResponse<IList<OrdemDto>>.Error(NoContent().StatusCode, "Nenhum objeto encontrado");
+                }
 
+                _logger.LogInformation("Requisição dos pedidos realizada com sucesso!");
                 return ApiResponse<IList<OrdemDto>>.Success(result);
             }
             catch (Exception ex)
             {
-
+                _logger.LogError("Erro ao encontrar os pedidos");
                 return ApiResponse<IList<OrdemDto>>.Error(500, ex.Message);
             }
         }

@@ -16,13 +16,13 @@ namespace Domain
             
         }
 
-        //public Contato(Guid contatoId, string nome, string sobrenome, bool contatoPrincipal)
-        //{
-        //    Id = new Guid();
-        //    Nome = nome;
-        //    Sobrenome = sobrenome;
-        //    ContatoPrincipal = contatoPrincipal;
+        public Contato(string nome, string sobrenome, bool contatoPrincipal)
+        {
+            Id = new Guid();
+            Nome = nome;
+            Sobrenome = sobrenome;
+            ContatoPrincipal = contatoPrincipal;
 
-        //}
+        }
     }
 }

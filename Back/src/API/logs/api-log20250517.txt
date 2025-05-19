@@ -1,0 +1,28 @@
+2025-05-17 17:51:07.333 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-17 17:51:07.346 -03:00 [INF] Request starting HTTP/2 GET https://localhost:44307/swagger/index.html - -
+2025-05-17 17:51:07.369 -03:00 [INF] Hosting environment: Development
+2025-05-17 17:51:07.369 -03:00 [INF] Content root path: C:\Users\silas\source\repos\projeto-revenda\Back\src\API
+2025-05-17 17:51:07.553 -03:00 [INF] Request starting HTTP/2 GET https://localhost:44307/_framework/aspnetcore-browser-refresh.js - -
+2025-05-17 17:51:07.555 -03:00 [INF] Request starting HTTP/2 GET https://localhost:44307/_vs/browserLink - -
+2025-05-17 17:51:07.555 -03:00 [INF] Request finished HTTP/2 GET https://localhost:44307/swagger/index.html - - - 200 - text/html;charset=utf-8 213.2452ms
+2025-05-17 17:51:07.560 -03:00 [INF] Request finished HTTP/2 GET https://localhost:44307/_framework/aspnetcore-browser-refresh.js - - - 200 12338 application/javascript;+charset=utf-8 5.0475ms
+2025-05-17 17:51:07.601 -03:00 [INF] Request finished HTTP/2 GET https://localhost:44307/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 45.8922ms
+2025-05-17 17:51:07.636 -03:00 [INF] Request starting HTTP/2 GET https://localhost:44307/swagger/v1/swagger.json - -
+2025-05-17 17:51:07.732 -03:00 [INF] Request finished HTTP/2 GET https://localhost:44307/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 95.7332ms
+2025-05-17 17:51:09.911 -03:00 [INF] Request starting HTTP/2 GET https://localhost:44307/api/Ordem - -
+2025-05-17 17:51:09.937 -03:00 [INF] Executing endpoint 'API.Controllers.OrdemController.Get (API)'
+2025-05-17 17:51:09.959 -03:00 [INF] Route matched with {action = "Get", controller = "Ordem"}. Executing controller action with signature System.Threading.Tasks.Task`1[API.Responses.ApiResponse`1[System.Collections.Generic.IList`1[Application.Dtos.OrdemDto]]] Get() on controller API.Controllers.OrdemController (API).
+2025-05-17 17:51:10.127 -03:00 [INF] Recebendo requisição para buscar pedidos...
+2025-05-17 17:51:10.492 -03:00 [INF] Entity Framework Core 5.0.17 initialized 'DataContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None
+2025-05-17 17:51:10.773 -03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "o"."Id", "o"."ClienteId", "o"."RevendaId", "r"."Id", "r"."Cnpj", "r"."Email", "r"."NomeFantasia", "r"."RazaoSocial", "p"."Id", "p"."Nome", "p"."OrdemId", "p"."Quantidade"
+FROM "ordens" AS "o"
+INNER JOIN "Revendas" AS "r" ON "o"."RevendaId" = "r"."Id"
+LEFT JOIN "Produto" AS "p" ON "o"."Id" = "p"."OrdemId"
+ORDER BY "o"."ClienteId", "o"."Id", "r"."Id", "p"."Id"
+2025-05-17 17:51:10.863 -03:00 [INF] Requisição dos pedidos realizada com sucesso!
+2025-05-17 17:51:10.868 -03:00 [INF] Executing ObjectResult, writing value of type 'API.Responses.ApiResponse`1[[System.Collections.Generic.IList`1[[Application.Dtos.OrdemDto, Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-05-17 17:51:10.976 -03:00 [INF] Executed action API.Controllers.OrdemController.Get (API) in 1014.3178ms
+2025-05-17 17:51:10.977 -03:00 [INF] Executed endpoint 'API.Controllers.OrdemController.Get (API)'
+2025-05-17 17:51:10.978 -03:00 [INF] HTTP GET /api/Ordem responded 200 in 1063.6929 ms
+2025-05-17 17:51:10.981 -03:00 [INF] Request finished HTTP/2 GET https://localhost:44307/api/Ordem - - - 200 616 application/json;+charset=utf-8 1070.1727ms

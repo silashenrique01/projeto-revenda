@@ -18,8 +18,20 @@ namespace Domain
 
         public Revenda()
         {
-            
+
         }
 
+        public Revenda(string cnpj, string razaoSocial, string nomeFantasia, string email, IList<Telefone> telefones, IList<Contato> contatos, IList<Endereco> enderecos, IList<Ordem> ordens)
+        {
+            Id = new Guid();
+            Cnpj = cnpj;
+            RazaoSocial = razaoSocial;
+            NomeFantasia = nomeFantasia;
+            Email = email;
+            Telefones = telefones;
+            Contatos = contatos;
+            Enderecos = enderecos;
+            Ordens = ordens;
+        }
     }
 }

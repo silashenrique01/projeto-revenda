@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using Serilog;
 
 namespace API
 {
@@ -52,6 +53,10 @@ namespace API
 
             services.AddCors();
 
+            services.AddLogging(loggingBuilder =>
+            loggingBuilder.AddSerilog(Log.Logger, dispose: true));
+
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -75,7 +80,9 @@ namespace API
             }
 
             app.UseHttpsRedirection();
-
+            
+            app.UseSerilogRequestLogging();
+            
             app.UseRouting();
 
             app.UseAuthorization();

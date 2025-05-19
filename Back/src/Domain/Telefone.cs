@@ -13,5 +13,10 @@ namespace Domain
         {
             
         }
+
+        public Telefone(string numero)
+        {
+            Numero = numero;
+        }
     }
 }
